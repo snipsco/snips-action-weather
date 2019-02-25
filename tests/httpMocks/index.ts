@@ -5,10 +5,11 @@ const nycWeather = require('./samples/weather_5128581.json')
 
 // Fix global date
 const BackupedDate = global.Date
+const freezedTime = 1550835788763
 const monkeyPatchedDate = function Date(arg) {
-    return new BackupedDate(arg || Date.now())
+    return new BackupedDate(arg || freezedTime)
 }
-monkeyPatchedDate.now = () => 1550835788763
+monkeyPatchedDate.now = () => freezedTime
 monkeyPatchedDate.parse = BackupedDate.parse
 monkeyPatchedDate.UTC = BackupedDate.UTC
 global.Date = monkeyPatchedDate as any
