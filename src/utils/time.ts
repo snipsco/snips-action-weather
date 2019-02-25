@@ -52,7 +52,7 @@ export const time = {
 
         const limits = {
             min: today.getTime(),
-            max: today.getTime() + FORECAST_DAYS_LIMIT
+            max: today.getTime() + FORECAST_DAYS_LIMIT + DAY_MILLISECONDS
         }
 
         let intervals: TimeInterval[] = []
@@ -68,7 +68,7 @@ export const time = {
 
             const slotValue = value.value
 
-            if(value.kind === Dialog.enums.slotType.duration) {
+            if(value.kind === Dialog.enums.slotType.instantTime) {
                 // Instant time
                 const { grain } = value
 
