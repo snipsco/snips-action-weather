@@ -1,7 +1,7 @@
 import { HOUR_MILLISECONDS, DAY_MILLISECONDS, FORECAST_DAYS_LIMIT } from '../constants'
 import { NluSlot, slotType, Dialog } from 'hermes-javascript'
 
-export type TimeSlot = NluSlot<slotType.duration | slotType.instantTime | slotType.timeInterval>
+export type TimeSlot = NluSlot<slotType.instantTime | slotType.timeInterval>
 export type TimeInterval = { from: number, to: number, rawValue?: string }
 
 function intersect (interval1: TimeInterval, interval2: TimeInterval) {
@@ -66,13 +66,11 @@ export const time = {
                 to: null
             }
 
-            const slotValue = value.value
-
             if(value.kind === Dialog.enums.slotType.instantTime) {
                 // Instant time
                 const { grain } = value
 
-                const instantTime = new Date(slotValue).getTime()
+                const instantTime = new Date(value.value).getTime()
 
                 // if(instantTime < today.getTime() || grain < 3)
                 //     throw new Error('intersection')
