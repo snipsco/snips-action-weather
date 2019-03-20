@@ -2,10 +2,8 @@
     "error": {
         "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips",
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
-        "locale": "Désolé, une erreur s'est produite avec vos paramètres de localisation.",
-        "places": "Désolé, une erreur s'est produite avec vos données géographiques.",
+        "locale": "Désolé, une erreur s'est produite avec vos paramètres de langue.",
         "defaultLocation": "Désolé, votre emplacement par défaut n'a pas été retrouvé",
-        "slots": "Désolé, une erreur s'est produite avec vos paramètres de lieu",
         "place": "Désolé, le lieu demandé n'a pas été retrouvé",
         "country": "Désolé, le pays demandé n'a pas été retrouvé",
         "abortedByUser": "Désolé une erreur s'est produite.",
@@ -127,7 +125,7 @@
                     "Non, il ne pleuvra pas sur {{ place }}.",
                     "Non, il n'est pas prévu qu'il pleuve sur {{ place }}.",
                     "Non, sur {{ place }} le temps ne sera pas pluvieux.",
-                    "Non, il n'y aura pas d'averses sur {{ place }}.",
+                    "Non, il n'y aura pas d'averse sur {{ place }}.",
                     "Non, il n'y aura pas de pluie sur {{ place }}.",
                     "Sur {{ place }}, aucune pluie n'est prévue."
                 ],
