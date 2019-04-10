@@ -49,7 +49,7 @@ export const location = {
 
         // If no location was specified, fallback to the default location
         if(!locationName) {
-            const defaultLocation = config.defaultLocation
+            const defaultLocation = config.currentLocation
             // Try to match cities, then regions
             const location = (
                 getMostPopulated(

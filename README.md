@@ -8,6 +8,10 @@
 sh setup.sh
 ```
 
+Don't forget to edit the `config.ini` file.
+
+To be able to make calls to the API, you must have a [OpenWeatherMap API key](https://openweathermap.org/api).
+
 ## Run
 
 - Dev mode:
@@ -23,12 +27,12 @@ npm run dev
 # 1) Lint, transpile and test.
 npm start
 # 2) Run the action.
-node action-snips.js
+node action-weather.js
 ```
 
 ## Debug
 
-In the `action-snips.js` file:
+In the `action-weather.js` file:
 
 ```js
 // Uncomment this line to print everything
