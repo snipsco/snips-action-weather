@@ -20,35 +20,36 @@ function resetAccumulatorItem(date: Date): ForecastAccumulatorItem {
     }
 }
 
-function updateAccumulatorItem (date: Date, accumulatorItem: ForecastAccumulatorItem, forecastInterval: ForecastData, day = false) {
+function updateAccumulatorItem(date: Date, accumulatorItem: ForecastAccumulatorItem, forecastInterval: ForecastData, day = false) {
     // Take the min/max temps
-    if(accumulatorItem.maxTemp === null || accumulatorItem.maxTemp < forecastInterval.main.temp) {
+    if (accumulatorItem.maxTemp === null || accumulatorItem.maxTemp < forecastInterval.main.temp) {
         accumulatorItem.maxTemp = forecastInterval.main.temp
     }
-    if(accumulatorItem.minTemp === null || accumulatorItem.minTemp > forecastInterval.main.temp) {
+    if (accumulatorItem.minTemp === null || accumulatorItem.minTemp > forecastInterval.main.temp) {
         accumulatorItem.minTemp = forecastInterval.main.temp
     }
     // Sum up the cloudiness / rain / snow
-    if(forecastInterval.clouds) {
+    if (forecastInterval.clouds) {
         accumulatorItem.cloudiness = accumulatorItem.cloudiness + forecastInterval.clouds.all || 0
     }
-    if(forecastInterval.rain) {
+    if (forecastInterval.rain) {
         const amount = forecastInterval.rain['3h'] || 0
         accumulatorItem.rain += amount
-        if(amount >= MIN_THRESHOLDS.rain * 3)
+        if (amount >= MIN_THRESHOLDS.rain * 3)
             accumulatorItem.counters.rain++
     }
-    if(forecastInterval.snow) {
+    if (forecastInterval.snow) {
         const amount = forecastInterval.snow['3h'] || 0
         accumulatorItem.snow += amount
-        if(amount >= MIN_THRESHOLDS.snow * 3)
+        if (amount >= MIN_THRESHOLDS.snow * 3)
             accumulatorItem.counters.snow++
     }
-    if(!day) {
+    if (!day) {
         accumulatorItem.timeInterval = forecastInterval.timeInterval
     }
-    if(accumulatorItem.iterations === 0)
-            accumulatorItem.startTime = date.getTime()
+    if (accumulatorItem.iterations === 0)
+        accumulatorItem.startTime = date.getTime()
+
     accumulatorItem.endTime = date.getTime()
     accumulatorItem.iterations++
 }
@@ -61,14 +62,14 @@ function finalizeAccumulatorItem (accumulatorItem: ForecastAccumulatorItem) {
     accumulatorItem.snow = accumulatorItem.snow / (accumulatorItem.iterations * 3)
 }
 
-function updateAccumulator (date: Date, accumulator: ForecastAccumulator, forecastInterval: ForecastData) {
+function updateAccumulator(date: Date, accumulator: ForecastAccumulator, forecastInterval: ForecastData) {
     const hour = date.getHours() + 1
 
     let period = 'evening'
-    if(hour < 12) {
+    if (hour < 12) {
         period = 'morning'
     }
-    if(hour >= 12 && hour < 18) {
+    if (hour >= 12 && hour < 18) {
         period = 'afternoon'
     }
 
@@ -76,9 +77,9 @@ function updateAccumulator (date: Date, accumulator: ForecastAccumulator, foreca
     updateAccumulatorItem(date, accumulator.day, forecastInterval, true)
 }
 
-function finalizeAccumulator (accumulator: ForecastAccumulator) {
+function finalizeAccumulator(accumulator: ForecastAccumulator) {
     periods.forEach(period => {
-        if(accumulator[period].iterations === 0) {
+        if (accumulator[period].iterations === 0) {
             delete accumulator[period]
         } else {
             finalizeAccumulatorItem(accumulator[period])
@@ -86,9 +87,8 @@ function finalizeAccumulator (accumulator: ForecastAccumulator) {
     })
 }
 
-
 // Takes raw weather data every 3 hours interval, aggregate the data and group by day & part of the day
-export function aggregateForecast (forecastData: ForecastData[]) {
+export function aggregateForecast(forecastData: ForecastData[]) {
     const finalData: ForecastAccumulator[] = []
 
     let day: number = null
@@ -102,14 +102,14 @@ export function aggregateForecast (forecastData: ForecastData[]) {
         return accumulator
     }
 
-    function pushAccumulator (date: Date) {
-        if(accumulator) {
+    function pushAccumulator(date: Date) {
+        if (accumulator) {
             // Calculate means and store the accumulator
             finalizeAccumulator(accumulator)
-            if(Object.keys(accumulator).length > 0)
+            if (Object.keys(accumulator).length > 0)
                 finalData.push(accumulator)
         }
-        if(date) {
+        if (date) {
             accumulator = resetAccumulator(date)
         }
     }
@@ -117,14 +117,14 @@ export function aggregateForecast (forecastData: ForecastData[]) {
     forecastData.forEach(forecastInterval => {
         const date = new Date(forecastInterval.dt * 1000)
 
-        if(day === null || date.getDay() !== day) {
+        if (day === null || date.getDay() !== day) {
             day = date.getDay()
             pushAccumulator(date)
         }
         updateAccumulator(date, accumulator, forecastInterval)
     })
 
-    if(accumulator)
+    if (accumulator)
         pushAccumulator(null)
 
     return finalData

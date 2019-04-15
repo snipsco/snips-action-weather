@@ -14,21 +14,21 @@ export async function getForecast(geonameid: string): Promise<ForecastData[]> {
         .json()
         .catch(error => {
             // Network error
-            if(error.name === 'TypeError')
+            if (error.name === 'TypeError')
                 throw new Error('APIRequest')
             // Other error
             throw new Error('APIResponse')
         }) as ForecastPayload
 
-    if(results.cod !== '200') {
+    if (results.cod !== '200') {
         throw new Error(results.cod === '404' ? 'place' : 'APIResponse')
     }
 
     const currentWeather = await getCurrentForecast(geonameid) as ForecastData & CurrentWeatherData
 
     // Format the current weather data to comply with the 3 hours API
-    ;['snow', 'rain'].forEach(weather => {
-        if(currentWeather[weather]) {
+    ['snow', 'rain'].forEach(weather => {
+        if (currentWeather[weather]) {
             currentWeather[weather]['3h'] = currentWeather[weather]['1h']
         } else {
             currentWeather[weather] = {}

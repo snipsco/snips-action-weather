@@ -1,6 +1,6 @@
 {
     "error": {
-        "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips",
+        "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips.",
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
         "locale": "Désolé, une erreur s'est produite avec vos paramètres de langue.",
         "defaultLocation": "Désolé, votre emplacement par défaut n'a pas été retrouvé",

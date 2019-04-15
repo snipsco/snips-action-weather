@@ -1,5 +1,7 @@
 # snips-action-weather
-#### Snips action code for the Weather app.
+#### Snips action code for the Weather app
+
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 ## Setup
 

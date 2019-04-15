@@ -27,6 +27,7 @@ export const translation = {
         const randomIndex = Math.floor(Math.random() * possibleValues.length)
         return possibleValues[randomIndex]
     },
+
     // Joins pieces of text with a conjunction (and)
     joinTerms(list: string[]) {
         if(!list || list.length < 2)
@@ -48,7 +49,8 @@ export const translation = {
         }
         return joinedString
     },
-    forecastToSpeech (formattedWeatherData: ForecastDayReport[], place?: string) {
+
+    forecastToSpeech(formattedWeatherData: ForecastDayReport[], place?: string) {
         const i18n = i18nFactory.get()
         const { joinTerms, randomTranslation } = translation
         let lastDay: string = null
@@ -62,12 +64,14 @@ export const translation = {
             const sameDay = lastDay === day.days[0]
             lastDay = day.days[day.days.length - 1]
 
-            if(day.labels.size === 0 && !sameDay) {
+            if (day.labels.size === 0 && !sameDay) {
                 time = joinTerms(day.days.map(day => i18n('days.' + day)))
             } else {
-                if(!sameDay && !day.customLabel)
+                if (!sameDay && !day.customLabel)
                     time = i18n('days.' + day.days[0]) + ', '
-                time += joinTerms(Array.from(day.labels).map(label => i18n(['partOfDay.' + label, label || ''])))
+                
+                if (formattedWeatherData.length !== 1)
+                    time += joinTerms(Array.from(day.labels).map(label => i18n(['partOfDay.' + label, label || ''])))
             }
 
             const weatherAdjective = ('quantifier' in day.report) ? 'quantifier' : 'qualifier'
@@ -78,7 +82,7 @@ export const translation = {
                 i18n('weatherTypes.' + weatherAdjective + '.' + day.report.type)
             predictions += randomTranslation('forecast.weather.prediction.' + weatherAdjective, { weather })
 
-            if(day.temperatures.min !== day.temperatures.max) {
+            if (day.temperatures.min !== day.temperatures.max) {
                 temperatures += randomTranslation('forecast.weather.temperatures.range', {
                     minTemp: day.temperatures.min, maxTemp: day.temperatures.max
                 })
@@ -102,7 +106,8 @@ export const translation = {
             return speech
         }, '')
     },
-    temperatureToSpeech (formattedWeatherData: ForecastDayReport[], place?: string): string {
+
+    temperatureToSpeech(formattedWeatherData: ForecastDayReport[], place?: string): string {
         const i18n = i18nFactory.get()
         const { joinTerms, randomTranslation } = translation
         let lastDay: string = null
@@ -115,12 +120,14 @@ export const translation = {
             const sameDay = lastDay === day.days[0]
             lastDay = day.days[day.days.length - 1]
 
-            if(day.labels.size === 0 && !sameDay) {
+            if (day.labels.size === 0 && !sameDay) {
                 time = joinTerms(day.days.map(day => i18n('days.' + day)))
             } else {
                 if(!sameDay && !day.customLabel)
                     time = i18n('days.' + day.days[0]) + ', '
-                time += joinTerms(Array.from(day.labels).map(label => i18n(['partOfDay.' + label, label || ''])))
+
+                if (formattedWeatherData.length !== 1)
+                    time += joinTerms(Array.from(day.labels).map(label => i18n(['partOfDay.' + label, label || ''])))
             }
 
             if( day.temperatures.min !== day.temperatures.max) {
@@ -146,10 +153,12 @@ export const translation = {
             return speech
         }, '')
     },
+
     conditionToSpeech (name: string, condition: string, place: string) {
         const randomTranslation = translation.randomTranslation
         return randomTranslation(`forecast.conditional.${condition}.${name}`, { place }) + '\n'
     },
+
     warnAboutTruncatedIntervals(isTruncated: boolean): string {
         const i18n = i18nFactory.get()
         return isTruncated ? i18n('warning.truncatedIntervals') : ''

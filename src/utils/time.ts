@@ -12,9 +12,9 @@ function intersect (interval1: TimeInterval, interval2: TimeInterval) {
 }
 
 export const time = {
-    isToday (date: Date) {
+    isToday(date: Date) {
         const today = new Date()
-        today.setHours(0,0,0,0)
+        today.setHours(0, 0, 0, 0)
         const interval = {
             min: today.getTime(),
             max: today.getTime() + DAY_MILLISECONDS
@@ -22,9 +22,10 @@ export const time = {
 
         return date.getTime() >= interval.min && date.getTime() <= interval.max
     },
-    isTomorrow (date: Date) {
+
+    isTomorrow(date: Date) {
         const tomorrow = new Date(Date.now() + DAY_MILLISECONDS)
-        tomorrow.setHours(0,0,0,0)
+        tomorrow.setHours(0, 0, 0, 0)
         const interval = {
             min: tomorrow.getTime(),
             max: tomorrow.getTime() + DAY_MILLISECONDS
@@ -32,18 +33,20 @@ export const time = {
 
         return date.getTime() >= interval.min && date.getTime() <= interval.max
     },
+
     extractTimeInterval: (timeSlots: TimeSlot[]) => {
         const [result, truncated]  = time.extractTimeIntervals(timeSlots)
-        if(result && result.length > 0)
+        if (result && result.length > 0)
             return [result[0], truncated]
         return null
     },
-    extractTimeIntervals: (timeSlots: TimeSlot[]) : [TimeInterval[], boolean] => {
+
+    extractTimeIntervals: (timeSlots: TimeSlot[]): [TimeInterval[], boolean] => {
         const today = new Date()
-        today.setHours(0,0,0,0)
+        today.setHours(0, 0, 0, 0)
 
         // No time slots specified, use the current day
-        if(timeSlots.length < 1) {
+        if (timeSlots.length < 1) {
             return [[{
                 from: today.getTime(),
                 to: today.getTime() + DAY_MILLISECONDS
@@ -66,7 +69,7 @@ export const time = {
                 to: null
             }
 
-            if(value.kind === Dialog.enums.slotType.instantTime) {
+            if (value.kind === Dialog.enums.slotType.instantTime) {
                 // Instant time
                 const { grain } = value
 
@@ -86,32 +89,32 @@ export const time = {
                         instantTime + HOUR_MILLISECONDS :
                     instantTime
 
-            } else if(value.kind === slotType.timeInterval){
+            } else if (value.kind === slotType.timeInterval) {
                 // Interval
                 intervalValue.from = value.from && new Date(value.from).getTime() || Date.now()
                 intervalValue.to = value.to && new Date(value.to).getTime() || Date.now()
             }
 
             // If the interval is out of the supported range
-            if(intervalValue.from < limits.min || intervalValue.to > limits.max)
+            if (intervalValue.from < limits.min || intervalValue.to > limits.max)
                 // throw new Error('intersection')
                 truncated = true
 
-            if(!intervals.length) {
+            if (!intervals.length) {
                 intervals.push({ from: intervalValue.from, to: intervalValue.to, rawValue })
             } else {
                 const intersected = intervals.some(interval => {
-                    if(intersect(interval, intervalValue)) {
-                        if(intervalValue.from < interval.from) {
+                    if (intersect(interval, intervalValue)) {
+                        if (intervalValue.from < interval.from) {
                             interval.from = intervalValue.from
                         }
-                        if(intervalValue.to > interval.to) {
+                        if (intervalValue.to > interval.to) {
                             interval.to = intervalValue.to
                         }
                         return true
                     }
                 })
-                if(!intersected) {
+                if (!intersected) {
                     intervals.push({ from: intervalValue.from, to: intervalValue.to, rawValue })
                 }
             }

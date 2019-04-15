@@ -2,12 +2,12 @@ import { mappingsFactory, configFactory, MappingsData, Mappings } from '../facto
 import { slotType, NluSlot } from 'hermes-javascript'
 
 function getMostPopulated (location: string, mappings: Mappings, countryCodeToFilterOn?: string): MappingsData {
-    if(!location)
+    if (!location)
         return null
 
     const value: MappingsData | MappingsData[] = mappings[location]
 
-    if(!value)
+    if (!value)
         return null
 
     if(value instanceof Array) {
@@ -48,7 +48,7 @@ export const location = {
             (countrySlot && countrySlot.value.value)
 
         // If no location was specified, fallback to the default location
-        if(!locationName) {
+        if (!locationName) {
             const defaultLocation = config.currentLocation
             // Try to match cities, then regions
             const location = (
@@ -61,23 +61,23 @@ export const location = {
                     mappings.region
                 )
             )
-            if(!location)
+            if (!location)
                 throw new Error('defaultLocation')
+
             return location
         }
 
         const country = getMostPopulated(countrySlot && countrySlot.value.value, mappings.country)
 
-        if(countrySlot && !regionSlot && !citySlot) {
-            if(!country)
+        if (countrySlot && !regionSlot && !citySlot) {
+            if (!country)
                 throw new Error('country')
             return country
         }
 
         // Use the region country code if needed
-        let countryCode: string
-        let countryName: string
-        if(country) {
+        let countryCode: string, countryName: string
+        if (country) {
             countryCode = country.country
             countryName = country.value
         } else {
@@ -93,11 +93,9 @@ export const location = {
             // Filter on the country code if present
             countryCode
         )
-        if(!location)
+        if (!location)
             throw new Error('place')
-        return {
-            ...location,
-            countryName
-        }
+        
+        return { ...location, countryName }
     }
 }

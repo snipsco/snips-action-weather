@@ -10,12 +10,15 @@ import * as weather from '../utils/weather'
 import { INTENT_THRESHOLD, ASR_THRESHOLD } from '../constants'
 import { getForecast } from '../api'
 
-
 /* Common logic performed for various intents */
 export default async function (msg: IntentMessage, { mergeFormattedData = false } = {}) {
-
-    if(msg.intent.confidenceScore < INTENT_THRESHOLD || message.getAsrConfidence(msg) < ASR_THRESHOLD) {
-        throw new Error('intentNotRecognized')
+    if (msg.intent) {
+        if (msg.intent.confidenceScore < INTENT_THRESHOLD) {
+            throw new Error('intentNotRecognized')
+        }
+        if (message.getAsrConfidence(msg) < ASR_THRESHOLD) {
+            throw new Error('intentNotRecognized')
+        }
     }
 
     /* Extract slots */
