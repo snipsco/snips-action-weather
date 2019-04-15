@@ -82,13 +82,14 @@ export const translation = {
                 i18n('weatherTypes.' + weatherAdjective + '.' + day.report.type)
             predictions += randomTranslation('forecast.weather.prediction.' + weatherAdjective, { weather })
 
-            if (day.temperatures.min !== day.temperatures.max) {
+            if (Math.abs(day.temperatures.min - day.temperatures.max) >= 4) {
                 temperatures += randomTranslation('forecast.weather.temperatures.range', {
-                    minTemp: day.temperatures.min, maxTemp: day.temperatures.max
+                    minTemp: day.temperatures.min,
+                    maxTemp: day.temperatures.max
                 })
             } else {
                 temperatures += randomTranslation('forecast.weather.temperatures.exact', {
-                    temperature: day.temperatures.min
+                    temperature: Math.floor((day.temperatures.min + day.temperatures.max) / 2)
                 })
             }
 
@@ -123,20 +124,21 @@ export const translation = {
             if (day.labels.size === 0 && !sameDay) {
                 time = joinTerms(day.days.map(day => i18n('days.' + day)))
             } else {
-                if(!sameDay && !day.customLabel)
+                if (!sameDay && !day.customLabel)
                     time = i18n('days.' + day.days[0]) + ', '
 
                 if (formattedWeatherData.length !== 1)
                     time += joinTerms(Array.from(day.labels).map(label => i18n(['partOfDay.' + label, label || ''])))
             }
 
-            if( day.temperatures.min !== day.temperatures.max) {
+            if (Math.abs(day.temperatures.min - day.temperatures.max) >= 4) {
                 temperatures += randomTranslation('forecast.temperatures.temperatures.range', {
-                    minTemp: day.temperatures.min, maxTemp: day.temperatures.max
+                    minTemp: day.temperatures.min,
+                    maxTemp: day.temperatures.max
                 })
             } else {
                 temperatures += randomTranslation('forecast.temperatures.temperatures.exact', {
-                    temperature: day.temperatures.min
+                    temperature: Math.floor((day.temperatures.min + day.temperatures.max) / 2)
                 })
             }
 
