@@ -7,7 +7,7 @@ export function filterForecastInterval(fullForecast: ForecastData[], timeInterva
 }
 
 // Filter raw weather data segments and keep the ones that intersect with the given time intervals.
-export function filterForecastByIntervals (fullForecast: ForecastData[], timeIntervals: TimeInterval[]): ForecastData[] {
+export function filterForecastByIntervals(fullForecast: ForecastData[], timeIntervals: TimeInterval[]): ForecastData[] {
     const filteredForecast = fullForecast.filter(segment => {
         const time = new Date(segment.dt * 1000).getTime()
 
