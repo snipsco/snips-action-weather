@@ -1,6 +1,6 @@
 {
   "name": "snips-action-weather",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Snips action code for the Weather app.",
   "main": "dist/index.js",
   "scripts": {
