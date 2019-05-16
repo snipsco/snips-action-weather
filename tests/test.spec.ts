@@ -85,7 +85,7 @@ it('should get the temperature in NYC for today and tomorrow', async () => {
             case 1:
                 expect(options.place).toBe(null)
                 expect(options.time).toMatch(/partOfDay\.afternoon/)
-                expect(options.temperatures).toMatch(/"minTemp":279,"maxTemp":281/)
+                expect(options.temperatures).toMatch(/"temperature":280/)
                 break
             case 2:
                 expect(options.place).toBe(null)
