@@ -1,5 +1,5 @@
 import { HOUR_MILLISECONDS, DAY_MILLISECONDS, FORECAST_DAYS_LIMIT } from '../constants'
-import { NluSlot, slotType, Dialog } from 'hermes-javascript'
+import { NluSlot, slotType, Enums } from 'hermes-javascript/types'
 
 export type TimeSlot = NluSlot<slotType.instantTime | slotType.timeInterval>
 export type TimeInterval = { from: number, to: number, rawValue?: string }
@@ -69,7 +69,7 @@ export const time = {
                 to: null
             }
 
-            if (value.kind === Dialog.enums.slotType.instantTime) {
+            if (value.kind === slotType.instantTime) {
                 // Instant time
                 const { grain } = value
 
@@ -81,11 +81,11 @@ export const time = {
                 // Set the interval based on the grain and precision
                 intervalValue.from = instantTime
                 intervalValue.to =
-                    grain === Dialog.enums.grain.week ?
+                    grain === Enums.grain.week ?
                         instantTime + DAY_MILLISECONDS * 7 :
-                    grain === Dialog.enums.grain.day ?
+                    grain === Enums.grain.day ?
                         instantTime + DAY_MILLISECONDS :
-                    grain === Dialog.enums.grain.hour ?
+                    grain === Enums.grain.hour ?
                         instantTime + HOUR_MILLISECONDS :
                     instantTime
 

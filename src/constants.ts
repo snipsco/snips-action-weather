@@ -1,10 +1,6 @@
-export const DEFAULT_LOCALE = 'english'
-export const SUPPORTED_LOCALES = [ 'english', 'french' ]
-export const DEFAULT_LANGUAGE = 'en'
-export const LANGUAGE_MAPPINGS = {
-    english: 'en',
-    french: 'fr'
-}
+export const BASE_URL = 'https://api.openweathermap.org/data/2.5'
+export const ASSETS_PATH = `${process.cwd()}/assets`
+
 export const HOUR_MILLISECONDS = 1000 * 60 * 60
 export const DAY_MILLISECONDS = 1000 * 60 * 60 * 24
 // 5 days
@@ -30,14 +26,14 @@ export const MIN_THRESHOLDS = {
     cloudiness: 25
 }
 export const CONDITIONS_MAPPINGS = {
-    fr: {
+    french: {
         froid: 'cold',
         chaud: 'warm',
         neige: 'snow',
         pluie: 'rain'
         // TODO (after it is ported in the french app)
     },
-    en: {
+    english: {
         cold: 'cold',
         warm: 'warm',
         snow: 'snow',

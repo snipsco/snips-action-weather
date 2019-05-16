@@ -1,9 +1,8 @@
-import { IntentMessage, slotType, NluSlot } from 'hermes-javascript'
+import { logger, message } from 'snips-toolkit'
+import { IntentMessage, slotType, NluSlot } from 'hermes-javascript/types'
 import {
     time,
-    message,
     location,
-    logger,
     TimeSlot
 } from '../utils'
 import * as weather from '../utils/weather'

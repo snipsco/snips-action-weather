@@ -1,4 +1,5 @@
-import { DEFAULT_LANGUAGE } from '../constants'
+import fs from 'fs'
+import { ASSETS_PATH } from '../constants'
 
 export type MappingsData = {
     geonameid: string
@@ -16,13 +17,13 @@ let mappings: {
     country: {
         [key: string]: MappingsData
     }
-} = null
+}
 
-function init (language = DEFAULT_LANGUAGE) {
+function init (language: string) {
     mappings = {
-        city: require(`../../assets/mappings/${language}/city.json`),
-        region: require(`../../assets/mappings/${language}/region.json`),
-        country: require(`../../assets/mappings/${language}/country.json`)
+        city: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/city.json`, 'utf8')),
+        region: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/region.json`, 'utf8')),
+        country: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/country.json`, 'utf8')),
     }
 }
 

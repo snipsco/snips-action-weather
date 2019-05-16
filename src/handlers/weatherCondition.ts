@@ -1,23 +1,19 @@
+import { Handler, config, message, logger } from 'snips-toolkit'
 import {
-    translation,
-    logger,
-    message,
+    translation
 } from '../utils'
 import * as weather from '../utils/weather'
-import { configFactory } from '../factories'
 import {
-    LANGUAGE_MAPPINGS,
     CONDITIONS_MAPPINGS,
     TEMPERATURE_TRESHOLDS
 } from '../constants'
 import commonHandler from './common'
-import { Handler } from '.'
-import { NluSlot, slotType } from 'hermes-javascript'
+
+import { NluSlot, slotType } from 'hermes-javascript/types'
 
 export const weatherConditionHandler: Handler = async function (msg, flow) {
 
-    const config = configFactory.get()
-    const language = LANGUAGE_MAPPINGS[config.locale]
+    const language = config.get().locale
     const conditionSlot: NluSlot<slotType.custom> = message.getSlotsByName(msg, 'condition_name', { onlyMostConfident: true })
 
     if(!conditionSlot) {

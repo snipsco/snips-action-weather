@@ -1,47 +1,48 @@
-import { withHermes } from 'hermes-javascript'
-import bootstrap from './bootstrap'
+import { Hermes, Done } from 'hermes-javascript'
+import { mappingsFactory } from './factories'
+import { config, i18n, logger } from 'snips-toolkit'
 import handlers from './handlers'
-import { translation, logger } from './utils'
 
-// Initialize hermes
-export default function ({
-    hermesOptions = {},
-    bootstrapOptions = {}
-} = {}) : Promise<() => void>{
-    return new Promise((resolve, reject) => {
-        withHermes(async (hermes, done) => {
-            try {
-                // Bootstrap config, locale, i18n…
-                await bootstrap(bootstrapOptions)
+// Enables deep printing of objects.
+process.env.DEBUG_DEPTH = undefined
+// Replace 'error' with '*' to log everything
+logger.enable('error')
 
-                const dialog = hermes.dialog()
+export default async function ({
+    hermes,
+    done
+}: {
+    hermes: Hermes,
+    done: Done
+}) {
+    try {
+        config.init()
+        await i18n.init(config.get().locale)
+        mappingsFactory.init(config.get().locale)
 
-                // Subscribe to the app intents
-                dialog.flows([
-                    {
-                        intent: 'snips-assistant:WeatherForecast',
-                        action : handlers.weatherForecast
-                    },
-                    {
-                        intent: 'snips-assistant:TemperatureForecast',
-                        action: handlers.temperatureForecast
-                    },
-                    {
-                        intent: 'snips-assistant:WeatherConditionRequest',
-                        action: handlers.weatherCondition
-                    }
-                ])
-                resolve(done)
-            } catch (error) {
-                // Output initialization errors to stderr and exit
-                const message = await translation.errorMessage(error)
-                logger.error(message)
-                logger.error(error)
-                // Exit
-                done()
-                // Reject
-                reject(error)
+        const dialog = hermes.dialog()
+
+        // Subscribe to the app intents
+        dialog.flows([
+            {
+                intent: 'snips-assistant:WeatherForecast',
+                action : handlers.weatherForecast
+            },
+            {
+                intent: 'snips-assistant:TemperatureForecast',
+                action: handlers.temperatureForecast
+            },
+            {
+                intent: 'snips-assistant:WeatherConditionRequest',
+                action: handlers.weatherCondition
             }
-        }, hermesOptions)
-    })
+        ])
+    } catch (error) {
+        // Output initialization errors to stderr and exit
+        const message = await i18n.errorMessage(error)
+        logger.error(message)
+        logger.error(error)
+        // Exit
+        done()
+    }
 }

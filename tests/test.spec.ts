@@ -1,13 +1,14 @@
-require('./helpers/setup').bootstrap()
-
-import Session from './helpers/session'
+import { Test } from 'snips-toolkit'
 import { createIntervalSlot, createCitySlot, createConditionSlot } from './utils'
+const { Session } = Test
+
+import './httpMocks'
+
+const today = new Date(Date.now())
+today.setHours(0,0,0,0)
+const dayAfterTomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24 * 2)
 
 it('should get the weather in NYC for today and tomorrow', async () => {
-    const today = new Date(Date.now())
-    today.setHours(0,0,0,0)
-    const dayAfterTomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24 * 2)
-
     const session = new Session()
     await session.start({
         intentName: 'snips-assistant:WeatherForecast',
@@ -22,7 +23,12 @@ it('should get the weather in NYC for today and tomorrow', async () => {
         ]
     })
     const endSessionMessage = await session.end()
-    const dayParts = endSessionMessage.text.match(/({.*})/g)
+    const endSessionText = endSessionMessage.text
+    if(!endSessionText)
+        throw new Error('Expected the end session message to contain tts speech.')
+    const dayParts = endSessionText.match(/({.*})/g)
+    if(!dayParts)
+        throw new Error('Expected the end session message to contain day parts.')
     expect(dayParts.length).toBe(3)
     dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
         expect(key).toBe('forecast.weather.day')
@@ -53,10 +59,6 @@ it('should get the weather in NYC for today and tomorrow', async () => {
 })
 
 it('should get the temperature in NYC for today and tomorrow', async () => {
-    const today = new Date(Date.now())
-    today.setHours(0,0,0,0)
-    const dayAfterTomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24 * 2)
-
     const session = new Session()
     await session.start({
         intentName: 'snips-assistant:TemperatureForecast',
@@ -71,7 +73,12 @@ it('should get the temperature in NYC for today and tomorrow', async () => {
         ]
     })
     const endSessionMessage = await session.end()
-    const dayParts = endSessionMessage.text.match(/({.*})/g)
+    const endSessionText = endSessionMessage.text
+    if(!endSessionText)
+        throw new Error('Expected the end session message to contain tts speech.')
+    const dayParts = endSessionText.match(/({.*})/g)
+    if(!dayParts)
+        throw new Error('Expected the end session message to contain day parts.')
     expect(dayParts.length).toBe(4)
     dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
         expect(key).toBe('forecast.temperatures.day')
@@ -102,10 +109,6 @@ it('should get the temperature in NYC for today and tomorrow', async () => {
 })
 
 it('should not detect rain today or tomorrow', async () => {
-    const today = new Date(Date.now())
-    today.setHours(0,0,0,0)
-    const dayAfterTomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24 * 2)
-
     const session = new Session()
     await session.start({
         intentName: 'snips-assistant:WeatherConditionRequest',
@@ -121,7 +124,12 @@ it('should not detect rain today or tomorrow', async () => {
         ]
     })
     const endSessionMessage = await session.end()
-    const sentences = endSessionMessage.text.match(/({.*})/g)
+    const endSessionText = endSessionMessage.text
+    if(!endSessionText)
+        throw new Error('Expected the end session message to contain tts speech.')
+    const sentences = endSessionText.match(/({.*})/g)
+    if(!sentences)
+        throw new Error('Expected the end session message to contain sentences.')
     expect(sentences.length).toBe(4)
 
     const [ affirmation ] = sentences.map(_ => JSON.parse(_))
@@ -131,8 +139,6 @@ it('should not detect rain today or tomorrow', async () => {
 })
 
 it('should detect rain for the next 5 days', async () => {
-    const today = new Date(Date.now())
-    today.setHours(0,0,0,0)
     const fifthDay = new Date(today.getTime() + 1000 * 60 * 60 * 24 * 5)
 
     const session = new Session()
@@ -150,7 +156,12 @@ it('should detect rain for the next 5 days', async () => {
         ]
     })
     const endSessionMessage = await session.end()
-    const sentences = endSessionMessage.text.match(/({.*})/g)
+    const endSessionText = endSessionMessage.text
+    if(!endSessionText)
+        throw new Error('Expected the end session message to contain tts speech.')
+    const sentences = endSessionText.match(/({.*})/g)
+    if(!sentences)
+        throw new Error('Expected the end session message to contain sentences.')
     expect(sentences.length).toBe(2)
 
     const [ affirmation, forecast ] = sentences.map(_ => JSON.parse(_))

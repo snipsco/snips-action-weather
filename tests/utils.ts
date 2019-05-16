@@ -1,15 +1,15 @@
-import { NluSlot, Dialog } from 'hermes-javascript'
+import { NluSlot, slotType } from 'hermes-javascript/types'
 
 export function createIntervalSlot(
     { from, to, rawValue } : { from: string, to: string, rawValue?: string }
-): NluSlot<typeof Dialog.enums.slotType.timeInterval> {
+): NluSlot<typeof slotType.timeInterval> {
     return {
         slotName: 'forecast_datetime',
         entity: 'snips/datetime',
         confidenceScore: 1,
         rawValue: rawValue || '',
         value: {
-            kind: Dialog.enums.slotType.timeInterval,
+            kind: slotType.timeInterval,
             from,//: '2019-02-22 00:00:00 +01:00',
             to//: '2019-02-24 00:00:00 +01:00'
         },
@@ -27,7 +27,7 @@ export function createCountrySlot(value: string) {
         confidenceScore: 1,
         rawValue: value,
         value: {
-            kind: Dialog.enums.slotType.custom,
+            kind: slotType.custom,
             value: value
         },
         range: {
@@ -44,7 +44,7 @@ export function createRegionSlot(value: string) {
         confidenceScore: 1,
         rawValue: value,
         value: {
-            kind: Dialog.enums.slotType.custom,
+            kind: slotType.custom,
             value: value
         },
         range: {
@@ -61,7 +61,7 @@ export function createCitySlot(value: string) {
         confidenceScore: 1,
         rawValue: value,
         value: {
-            kind: Dialog.enums.slotType.custom,
+            kind: slotType.custom,
             value
         },
         range: {
@@ -78,7 +78,7 @@ export function createConditionSlot(value: string) {
         confidenceScore: 1,
         rawValue: value,
         value: {
-            kind: Dialog.enums.slotType.custom,
+            kind: slotType.custom,
             value
         },
         range: {

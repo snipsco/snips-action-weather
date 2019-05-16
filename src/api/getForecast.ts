@@ -1,12 +1,11 @@
-import { httpFactory } from '../factories'
+import { request } from './index'
 import { getCurrentForecast } from './getCurrentForecast'
 import { HOUR_MILLISECONDS } from '../constants'
 import { ForecastData, ForecastPayload, CurrentWeatherData } from './types'
 
 // Get forecast predictions for a specific location.
 export async function getForecast(geonameid: string): Promise<ForecastData[]> {
-    const http = httpFactory.get()
-    const results = await http.url('/forecast')
+    const results = await request.url('/forecast')
         .query({
             id: geonameid
         })

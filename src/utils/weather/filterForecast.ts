@@ -17,7 +17,7 @@ export function filterForecastByIntervals(fullForecast: ForecastData[], timeInte
         ))
         if (matchingInterval)
             segment.timeInterval = matchingInterval
-            
+
         return matchingInterval
     })
 

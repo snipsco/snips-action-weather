@@ -1,5 +1,6 @@
-import { mappingsFactory, configFactory, MappingsData, Mappings } from '../factories'
-import { slotType, NluSlot } from 'hermes-javascript'
+import { config } from 'snips-toolkit'
+import { mappingsFactory, MappingsData, Mappings } from '../factories'
+import { slotType, NluSlot } from 'hermes-javascript/types'
 
 function getMostPopulated (location: string, mappings: Mappings, countryCodeToFilterOn?: string): MappingsData {
     if (!location)
@@ -40,7 +41,7 @@ export const location = {
         citySlot: NluSlot<slotType.custom>
     ): MappingsData & { countryName?: string } {
         const mappings = mappingsFactory.get()
-        const config = configFactory.get()
+        const { currentLocation: defaultLocation } = config.get()
 
         const locationName =
             (citySlot && citySlot.value.value) ||
@@ -49,7 +50,6 @@ export const location = {
 
         // If no location was specified, fallback to the default location
         if (!locationName) {
-            const defaultLocation = config.currentLocation
             // Try to match cities, then regions
             const location = (
                 getMostPopulated(
@@ -95,7 +95,7 @@ export const location = {
         )
         if (!location)
             throw new Error('place')
-        
+
         return { ...location, countryName }
     }
 }

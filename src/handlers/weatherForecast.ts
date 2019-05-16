@@ -1,8 +1,8 @@
+import { Handler, logger } from 'snips-toolkit'
 import {
-    translation, logger
+    translation
 } from '../utils'
 import commonHandler from './common'
-import { Handler } from '.'
 
 export const weatherForecastHandler: Handler = async function (msg, flow) {
     const {
