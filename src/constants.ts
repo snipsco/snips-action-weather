@@ -26,14 +26,14 @@ export const MIN_THRESHOLDS = {
     cloudiness: 25
 }
 export const CONDITIONS_MAPPINGS = {
-    french: {
+    fr: {
         froid: 'cold',
         chaud: 'warm',
         neige: 'snow',
         pluie: 'rain'
         // TODO (after it is ported in the french app)
     },
-    english: {
+    en: {
         cold: 'cold',
         warm: 'warm',
         snow: 'snow',

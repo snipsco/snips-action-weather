@@ -1,3 +1,4 @@
+import { logger } from 'snips-toolkit'
 import { request } from './index'
 import { CurrentWeatherData } from './types'
 
@@ -9,7 +10,8 @@ export async function getCurrentForecast(geonameid: string): Promise<CurrentWeat
             })
             .get()
             .json()
-            .catch(error => {
+            .catch((error: Error) => {
+                logger.error(error)
                 // Network error
                 if (error.name === 'TypeError')
                     throw new Error('APIRequest')
@@ -18,6 +20,7 @@ export async function getCurrentForecast(geonameid: string): Promise<CurrentWeat
             }) as CurrentWeatherData
 
         if (result.cod !== 200) {
+            logger.error(result)
             throw new Error(result.cod === 404 ? 'place' : 'APIResponse')
         }
 

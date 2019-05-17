@@ -1,12 +1,11 @@
 import { Hermes, Done } from 'hermes-javascript'
-import { mappingsFactory } from './factories'
 import { config, i18n, logger } from 'snips-toolkit'
+import { mappings } from './utils'
+import * as api from './api'
 import handlers from './handlers'
 
 // Enables deep printing of objects.
 process.env.DEBUG_DEPTH = undefined
-// Replace 'error' with '*' to log everything
-logger.enable('error')
 
 export default async function ({
     hermes,
@@ -16,9 +15,15 @@ export default async function ({
     done: Done
 }) {
     try {
+        const { name } = require('../package.json')
+        logger.init(name)
+        // Replace 'error' with '*' to log everything
+        logger.enable('error')
+
         config.init()
         await i18n.init(config.get().locale)
-        mappingsFactory.init(config.get().locale)
+        mappings.init(config.get().locale)
+        api.init()
 
         const dialog = hermes.dialog()
 

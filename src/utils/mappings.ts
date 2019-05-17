@@ -11,7 +11,7 @@ export type Mappings = {
     [key: string]: MappingsData | MappingsData[]
 }
 
-let mappings: {
+let _mappings: {
     city: Mappings,
     region: Mappings,
     country: {
@@ -20,7 +20,7 @@ let mappings: {
 }
 
 function init (language: string) {
-    mappings = {
+    _mappings = {
         city: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/city.json`, 'utf8')),
         region: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/region.json`, 'utf8')),
         country: JSON.parse(fs.readFileSync(`${ASSETS_PATH}/mappings/${language}/country.json`, 'utf8')),
@@ -28,10 +28,10 @@ function init (language: string) {
 }
 
 function get() {
-    return mappings
+    return _mappings
 }
 
-export const mappingsFactory = {
+export const mappings = {
     init,
     get
 }

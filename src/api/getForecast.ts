@@ -1,3 +1,4 @@
+import { logger } from 'snips-toolkit'
 import { request } from './index'
 import { getCurrentForecast } from './getCurrentForecast'
 import { HOUR_MILLISECONDS } from '../constants'
@@ -11,7 +12,8 @@ export async function getForecast(geonameid: string): Promise<ForecastData[]> {
         })
         .get()
         .json()
-        .catch(error => {
+        .catch((error: Error) => {
+            logger.error(error)
             // Network error
             if (error.name === 'TypeError')
                 throw new Error('APIRequest')
@@ -20,6 +22,7 @@ export async function getForecast(geonameid: string): Promise<ForecastData[]> {
         }) as ForecastPayload
 
     if (results.cod !== '200') {
+        logger.error(results)
         throw new Error(results.cod === '404' ? 'place' : 'APIResponse')
     }
 
