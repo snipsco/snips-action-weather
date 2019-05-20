@@ -31,7 +31,7 @@ export default async function ({
         dialog.flows([
             {
                 intent: 'snips-assistant:WeatherForecast',
-                action : handlers.weatherForecast
+                action: handlers.weatherForecast
             },
             {
                 intent: 'snips-assistant:TemperatureForecast',

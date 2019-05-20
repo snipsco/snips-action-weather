@@ -2,7 +2,7 @@ import { Test } from 'snips-toolkit'
 import { createIntervalSlot, createCitySlot, createConditionSlot } from './utils'
 const { Session } = Test
 
-import './httpMocks'
+import './mocks'
 
 const today = new Date(Date.now())
 today.setHours(0,0,0,0)
