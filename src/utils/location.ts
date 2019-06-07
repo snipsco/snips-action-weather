@@ -5,12 +5,12 @@ function getMostPopulated (location: string, mappings: Mappings, countryCodeToFi
     if (!location)
         return null
 
-    const value: MappingsData | MappingsData[] = mappings[location]
+    const value: MappingsData | MappingsData[] = mappings[location.toLowerCase()]
 
     if (!value)
         return null
 
-    if(value instanceof Array) {
+    if (value instanceof Array) {
         return value.reduce((accu, item) => {
             return (
                 (
