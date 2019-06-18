@@ -1,6 +1,6 @@
 # snips-action-weather
 
-Snips action code for the Weather app
+### Snips action code for the Weather app
 
 [![Build Status](https://travis-ci.org/snipsco/snips-action-weather.svg?branch=master)](https://travis-ci.org/snipsco/snips-action-weather)
 
