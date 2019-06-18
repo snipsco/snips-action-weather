@@ -4,7 +4,7 @@ const { Session } = Test
 
 import './mocks'
 
-const previousDay = new Date().getTimezoneOffset() > -120
+const previousDay = new Date().getTimezoneOffset() > -60
 
 describe('The weather app', () => {
 
