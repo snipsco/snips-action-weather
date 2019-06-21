@@ -2,3 +2,8 @@
 config.ini
 .vscode
 /dist
+
+# package managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
