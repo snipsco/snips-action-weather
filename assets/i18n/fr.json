@@ -17,7 +17,7 @@
         "unspecific": "Oups, quelque chose s'est mal passé."
     },
     "warning": {
-        "truncatedIntervals": "Désolé, je ne peux prédire la méteo que pour les cinq prochains jours."
+        "truncatedIntervals": "Désolé, je ne peux prédire la météo que pour les cinq prochains jours."
     },
     "forecast": {
         "weather": {
@@ -51,7 +51,7 @@
                 ]
             },
             "day": "{{- time }} {{- predictions }} {{- temperatures }}.",
-            "day_place": "{{- place }} {{- time }} {{- predictions }} {{- temperatures }}."
+            "day_place": "Sur {{- place }} {{- time }} {{- predictions }} {{- temperatures }}."
         },
         "temperatures": {
             "temperatures": {
@@ -67,7 +67,7 @@
                 ]
             },
             "day": "{{- time }} {{- temperatures }}.",
-            "day_place": "{{- place }} {{- time }} {{- temperatures }}."
+            "day_place": "Sur {{- place }} {{- time }} {{- temperatures }}."
         },
         "conditional": {
             "yes": {
