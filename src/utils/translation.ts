@@ -44,7 +44,7 @@ export const translation = {
                 if (!sameDay && !day.customLabel)
                     time = i18n.translate('days.' + day.days[0]) + ', '
 
-                if (formattedWeatherData.length !== 1)
+                if (Array.from(day.labels).length < 3)
                     time += joinTerms(Array.from(day.labels).map(label => i18n.translate(['partOfDay.' + label, label || ''])))
             }
 
@@ -56,7 +56,7 @@ export const translation = {
                 i18n.translate('weatherTypes.' + weatherAdjective + '.' + day.report.type)
             predictions += i18n.randomTranslation('forecast.weather.prediction.' + weatherAdjective, { weather })
 
-            if (Math.abs(day.temperatures.min - day.temperatures.max) >= 4) {
+            if (Math.abs(day.temperatures.min - day.temperatures.max) > 4) {
                 temperatures += i18n.randomTranslation('forecast.weather.temperatures.range', {
                     minTemp: day.temperatures.min,
                     maxTemp: day.temperatures.max
@@ -100,11 +100,11 @@ export const translation = {
                 if (!sameDay && !day.customLabel)
                     time = i18n.translate('days.' + day.days[0]) + ', '
 
-                if (formattedWeatherData.length !== 1)
+                if (Array.from(day.labels).length < 3)
                     time += joinTerms(Array.from(day.labels).map(label => i18n.translate(['partOfDay.' + label, label || ''])))
             }
 
-            if (Math.abs(day.temperatures.min - day.temperatures.max) >= 4) {
+            if (Math.abs(day.temperatures.min - day.temperatures.max) > 4) {
                 temperatures += i18n.randomTranslation('forecast.temperatures.temperatures.range', {
                     minTemp: day.temperatures.min,
                     maxTemp: day.temperatures.max

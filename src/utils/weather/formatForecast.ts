@@ -87,7 +87,11 @@ function mergeTemperatures (mainTemperature: Temperature, otherTemperature: Temp
 }
 
 // Process the collected weather data to add weather reports, and merge time periods that have the same weather type.
-export function formatForecast(data: ForecastAccumulator[], { mergeDays = true, mergePeriods = true } = {}): ForecastDayReport[] {
+export function formatForecast(data: ForecastAccumulator[], {
+    mergeDaysByType = true,
+    mergePeriodsByType = true,
+    forceMergePeriods = false
+} = {}): ForecastDayReport[] {
     // Add weather report for each day
     data.forEach(day => {
         for (let dayPart in day) {
@@ -130,7 +134,7 @@ export function formatForecast(data: ForecastAccumulator[], { mergeDays = true, 
             // Check if we can merge the day report with the previous one
             const lastReport = daysReport.length > 0 && daysReport[daysReport.length - 1]
             if (
-                mergeDays &&
+                mergeDaysByType &&
                 lastReport && lastReport.labels.size === 0 &&
                 lastReport.report.type === dayReport.report.type
             ) {
@@ -154,7 +158,7 @@ export function formatForecast(data: ForecastAccumulator[], { mergeDays = true, 
 
             if (dayReport.labels.size > 0 && dayReport.report !== null) {
                 // Check previous report and merge if possible
-                if (dayReport.report.type === dayPart.report.type && mergePeriods) {
+                if (forceMergePeriods || dayReport.report.type === dayPart.report.type && mergePeriodsByType) {
                     // Same type - merge
                     dayReport.labels.add(label)
                     mergeReports(dayReport.report, dayPart.report)

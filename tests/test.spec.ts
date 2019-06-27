@@ -52,7 +52,7 @@ describe('The weather app', () => {
                     expect(options.temperatures).toMatch(
                         previousDay
                             ? /"minTemp":275,"maxTemp":281/
-                            : /"minTemp":277,"maxTemp":281/
+                            : /"temperature":279/
                     )
                     break
                 case 2:
@@ -87,31 +87,16 @@ describe('The weather app', () => {
         const dayParts = endSessionText.match(/({.*})/g)
         if(!dayParts)
             throw new Error('Expected the end session message to contain day parts.')
-        expect(dayParts.length).toBe(4)
+        expect(dayParts.length).toBe(2)
         dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
             expect(key).toBe('forecast.temperatures.day')
             switch(index) {
                 case 0:
                     expect(options.place).toBe('New York City')
                     expect(options.time).toMatch(/days\.today/)
-                    expect(options.time).toMatch(/partOfDay\.morning/)
-                    expect(options.temperatures).toMatch(/"temperature":275/)
+                    expect(options.temperatures).toMatch(/"minTemp":275,"maxTemp":281/)
                     break
                 case 1:
-                    expect(options.place).toBe(null)
-                    expect(options.time).toMatch(/partOfDay\.afternoon/)
-                    expect(options.temperatures).toMatch(/"temperature":280/)
-                    break
-                case 2:
-                    expect(options.place).toBe(null)
-                    expect(options.time).toMatch(/partOfDay\.evening/)
-                    expect(options.temperatures).toMatch(
-                        previousDay
-                            ? /"minTemp":275,"maxTemp":281/
-                            : /"minTemp":277,"maxTemp":281/
-                    )
-                    break
-                case 3:
                     expect(options.place).toBe(null)
                     expect(options.time).toMatch(/days\.tomorrow/)
                     expect(options.temperatures).toMatch(/"minTemp":272,"maxTemp":277/)
@@ -142,7 +127,7 @@ describe('The weather app', () => {
         const sentences = endSessionText.match(/({.*})/g)
         if(!sentences)
             throw new Error('Expected the end session message to contain sentences.')
-        expect(sentences.length).toBe(4)
+        expect(sentences.length).toBe(3)
 
         const [ affirmation ] = sentences.map(_ => JSON.parse(_))
 

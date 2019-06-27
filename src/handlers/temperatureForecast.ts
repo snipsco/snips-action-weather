@@ -9,7 +9,7 @@ export const temperatureForecastHandler: Handler =  async function (msg, flow) {
         place,
         formattedForecastData,
         intervalsAreTruncated
-    } = await commonHandler(msg, { mergeFormattedData: false })
+    } = await commonHandler(msg, { forceMergePeriods: true })
 
     const speech =
         translation.warnAboutTruncatedIntervals(intervalsAreTruncated) +

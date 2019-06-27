@@ -23,3 +23,8 @@ SnipsToolkit.mock.globals(globals => {
 
     globals.Date = monkeyPatchedDate
 })
+
+SnipsToolkit.mock.config(config => {
+    config.locale = 'en'
+    config.defaultLocation = 'New York City'
+})

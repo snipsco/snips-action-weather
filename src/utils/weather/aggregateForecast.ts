@@ -63,7 +63,7 @@ function finalizeAccumulatorItem (accumulatorItem: ForecastAccumulatorItem) {
 }
 
 function updateAccumulator(date: Date, accumulator: ForecastAccumulator, forecastInterval: ForecastData) {
-    const hour = date.getHours() + 1
+    const hour = date.getHours()
 
     let period = 'evening'
     if (hour < 12) {

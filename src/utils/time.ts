@@ -7,7 +7,7 @@ export type TimeInterval = { from: number, to: number, rawValue?: string }
 function intersect (interval1: TimeInterval, interval2: TimeInterval) {
     return (
         interval1.from <= interval2.to &&
-        interval1.to >= interval2.from
+        interval1.to > interval2.from
     )
 }
 

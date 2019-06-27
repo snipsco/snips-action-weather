@@ -10,7 +10,10 @@ import { INTENT_THRESHOLD, ASR_THRESHOLD } from '../constants'
 import { getForecast } from '../api'
 
 /* Common logic performed for various intents */
-export default async function (msg: IntentMessage, { mergeFormattedData = false } = {}) {
+export default async function (msg: IntentMessage, {
+    mergeFormattedDataByType = false,
+    forceMergePeriods = false
+} = {}) {
     if (msg.intent) {
         if (msg.intent.confidenceScore < INTENT_THRESHOLD) {
             throw new Error('intentNotRecognized')
@@ -59,8 +62,9 @@ export default async function (msg: IntentMessage, { mergeFormattedData = false 
         and grouped by adjacent periods and weather type.
      */
     const formattedForecastData = weather.formatForecast(aggregatedForecastData, {
-        mergeDays: mergeFormattedData,
-        mergePeriods: mergeFormattedData
+        mergeDaysByType: mergeFormattedDataByType,
+        mergePeriodsByType: mergeFormattedDataByType,
+        forceMergePeriods
     })
     logger.info('formatted forecast data: %O', formattedForecastData)
 

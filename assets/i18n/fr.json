@@ -91,17 +91,17 @@
                     "Oui, il va faire froid sur {{- place }}.",
                     "Oui, il est prévu qu'il fasse froid sur {{- place }}.",
                     "Oui, sur {{- place }} les températures seront fraîches.",
-                    "Effectivement, il y aura des températures relativement basses sur {{- place }}.",
+                    "Effectivement, il y aura des températures assez basses sur {{- place }}.",
                     "Oui, sur {{- place }} il fera froid.",
-                    "Sur {{- place }}, on attend des températures relativement basses."
+                    "Oui, sur {{- place }}, on attend des températures plutôt basses."
                 ],
                 "warm": [
                     "Oui, il va faire chaud sur {{- place }}.",
                     "Oui, il est prévu qu'il fasse chaud sur {{- place }}.",
                     "Oui, sur {{- place }} les températures seront hautes.",
-                    "Effectivement, il y aura des températures relativement hautes sur {{- place }}.",
+                    "Effectivement, il y aura des températures assez élevées sur {{- place }}.",
                     "Oui, sur {{- place }} il fera chaud.",
-                    "Sur {{- place }}, on attend des températures relativement hautes."
+                    "Oui, sur {{- place }}, on attend des températures plutôt hautes."
                 ],
                 "clouds": [
                     "Oui, il y aura des nuages sur {{- place }}.",

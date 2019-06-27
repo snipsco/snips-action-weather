@@ -29,15 +29,13 @@ export const weatherConditionHandler: Handler = async function (msg, flow) {
     const {
         place,
         aggregatedForecastData,
-        formattedForecastData,
         intervalsAreTruncated
-    } = await commonHandler(msg, { mergeFormattedData: true })
+    } = await commonHandler(msg, { mergeFormattedDataByType: true })
 
     let speech = translation.warnAboutTruncatedIntervals(intervalsAreTruncated) + ' '
     if(conditionName === 'cold' || conditionName === 'warm') {
         const formattedTemperatureData = weather.formatForecast(aggregatedForecastData, {
-            mergeDays: false,
-            mergePeriods: false
+            forceMergePeriods: true
         })
 
         // Temperature
@@ -56,6 +54,10 @@ export const weatherConditionHandler: Handler = async function (msg, flow) {
             speech += translation.temperatureToSpeech(filteredReports)
         }
     } else {
+        const formattedForecastData = weather.formatForecast(aggregatedForecastData, {
+            forceMergePeriods: true
+        })
+
         // Weather types
         const filteredReports = formattedForecastData.filter(report => (
             report.report.type === conditionName
