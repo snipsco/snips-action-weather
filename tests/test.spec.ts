@@ -4,7 +4,7 @@ const { Session } = Test
 
 import './mocks'
 
-const previousDay = new Date().getTimezoneOffset() > -60
+const lowerTimeZone = new Date().getTimezoneOffset() > -60
 
 describe('The weather app', () => {
 
@@ -33,37 +33,54 @@ describe('The weather app', () => {
         const dayParts = endSessionText.match(/({.*})/g)
         if(!dayParts)
             throw new Error('Expected the end session message to contain day parts.')
-        expect(dayParts.length).toBe(3)
-        dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
-            expect(key).toBe('forecast.weather.day')
-            switch(index) {
-                case 0:
-                    expect(options.place).toBe('New York City')
-                    expect(options.time).toMatch(/days\.today/)
-                    expect(options.time).toMatch(/partOfDay\.morning/)
-                    expect(options.predictions).toMatch(/weatherTypes\.quantifier\.clouds/)
-                    expect(options.temperatures).toMatch(/"temperature":275/)
-                    break
-                case 1:
-                    expect(options.place).toBe(null)
-                    expect(options.time).toMatch(/partOfDay\.afternoon/)
-                    expect(options.time).toMatch(/partOfDay\.evening/)
-                    expect(options.predictions).toMatch(/weatherTypes\.quantifier\.sun/)
-                    expect(options.temperatures).toMatch(
-                        previousDay
-                            ? /"minTemp":275,"maxTemp":281/
-                            : /"temperature":279/
-                    )
-                    break
-                case 2:
-                    expect(options.place).toBe(null)
-                    expect(options.time).toMatch(/days\.tomorrow/)
-                    expect(options.predictions).toMatch(/quantifier\.mostly/)
-                    expect(options.predictions).toMatch(/weatherTypes\.quantifier\.clouds/)
-                    expect(options.temperatures).toMatch(/"minTemp":272,"maxTemp":277/)
-                    break
-            }
-        })
+        expect(dayParts.length).toBe(lowerTimeZone ? 2 : 3)
+        if(lowerTimeZone) {
+            dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
+                expect(key).toBe('forecast.weather.day')
+                switch(index) {
+                    case 0:
+                        expect(options.place).toBe('New York City')
+                        expect(options.time).toMatch(/days\.today/)
+                        expect(options.predictions).toMatch(/weatherTypes\.quantifier\.sun/)
+                        expect(options.temperatures).toMatch(/"minTemp":275,"maxTemp":281/)
+                        break
+                    case 1:
+                        expect(options.place).toBe(null)
+                        expect(options.time).toMatch(/days\.tomorrow/)
+                        expect(options.predictions).toMatch(/quantifier\.mostly/)
+                        expect(options.predictions).toMatch(/weatherTypes\.quantifier\.clouds/)
+                        expect(options.temperatures).toMatch(/"minTemp":272,"maxTemp":277/)
+                        break
+                }
+            })
+        } else {
+            dayParts.map(_ => JSON.parse(_)).forEach(({ key, options }, index) => {
+                expect(key).toBe('forecast.weather.day')
+                switch(index) {
+                    case 0:
+                        expect(options.place).toBe('New York City')
+                        expect(options.time).toMatch(/days\.today/)
+                        expect(options.time).toMatch(/partOfDay\.morning/)
+                        expect(options.predictions).toMatch(/weatherTypes\.quantifier\.clouds/)
+                        expect(options.temperatures).toMatch(/"temperature":275/)
+                        break
+                    case 1:
+                        expect(options.place).toBe(null)
+                        expect(options.time).toMatch(/partOfDay\.afternoon/)
+                        expect(options.time).toMatch(/partOfDay\.evening/)
+                        expect(options.predictions).toMatch(/weatherTypes\.quantifier\.sun/)
+                        expect(options.temperatures).toMatch(/"temperature":279/)
+                        break
+                    case 2:
+                        expect(options.place).toBe(null)
+                        expect(options.time).toMatch(/days\.tomorrow/)
+                        expect(options.predictions).toMatch(/quantifier\.mostly/)
+                        expect(options.predictions).toMatch(/weatherTypes\.quantifier\.clouds/)
+                        expect(options.temperatures).toMatch(/"minTemp":272,"maxTemp":277/)
+                        break
+                }
+            })
+        }
     })
 
     it('should get the temperature in NYC for today and tomorrow', async () => {
@@ -172,7 +189,7 @@ describe('The weather app', () => {
         expect(forecast.options.predictions).toMatch(/weatherTypes\.qualifier\.rain/)
         expect(forecast.options.predictions).toMatch(/weatherTypes\.qualifier\.rain/)
         expect(forecast.options.temperatures).toMatch(
-            previousDay
+            lowerTimeZone
                 ? /"minTemp":271,"maxTemp":283/
                 : /"minTemp":275,"maxTemp":283/
         )
