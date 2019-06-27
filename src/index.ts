@@ -30,15 +30,15 @@ export default async function ({
         // Subscribe to the app intents
         dialog.flows([
             {
-                intent: 'snips-assistant:WeatherForecast',
+                intent: `${ config.get().assistantPrefix }:WeatherForecast`,
                 action: handlers.weatherForecast
             },
             {
-                intent: 'snips-assistant:TemperatureForecast',
+                intent: `${ config.get().assistantPrefix }:TemperatureForecast`,
                 action: handlers.temperatureForecast
             },
             {
-                intent: 'snips-assistant:WeatherConditionRequest',
+                intent: `${ config.get().assistantPrefix }:WeatherConditionRequest`,
                 action: handlers.weatherCondition
             }
         ])

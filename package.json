@@ -32,6 +32,7 @@
     "fs",
     "http",
     "https",
+    "os",
     "path",
     "stream",
     "tty",

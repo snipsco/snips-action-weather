@@ -4,3 +4,4 @@ default_location=New York City
 
 [secret]
 api_key=
+assistant_prefix=snips-assistant
