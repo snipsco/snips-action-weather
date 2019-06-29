@@ -2,7 +2,7 @@
     "error": {
         "mqtt": "Sorry, there was a communication error with the Snips platform.",
         "config": "Sorry, there was an error with your config file.",
-        "locale": "Sorry, there was an error with your language settings.",
+        "localisation": "Sorry, there was an error with your language settings.",
         "defaultLocation": "Sorry, your default location was not found.",
         "place": "Sorry, the location you asked for was not found.",
         "country": "Sorry, the country you asked for was not found.",
@@ -13,7 +13,6 @@
         "APIResponse": "Sorry, there was an issue with the service provider.",
         "APIRequest": "Sorry, the service provider is unreachable.",
         "API": "Sorry, there was an issue with your data retrieving.",
-        "localisation": "Sorry, this language is not supported.",
         "unspecific": "Oops, something went wrong."
     },
     "warning": {

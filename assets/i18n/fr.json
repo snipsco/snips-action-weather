@@ -2,18 +2,17 @@
     "error": {
         "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips.",
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
-        "locale": "Désolé, une erreur s'est produite avec vos paramètres de langue.",
-        "defaultLocation": "Désolé, votre emplacement par défaut n'a pas été retrouvé",
-        "place": "Désolé, le lieu demandé n'a pas été retrouvé",
-        "country": "Désolé, le pays demandé n'a pas été retrouvé",
-        "abortedByUser": "Désolé une erreur s'est produite.",
+        "localisation": "Désolé, une erreur s'est produite avec vos paramètres de langue.",
+        "defaultLocation": "Désolé, votre emplacement par défaut n'a pas été retrouvé.",
+        "place": "Désolé, le lieu demandé n'a pas été retrouvé.",
+        "country": "Désolé, le pays demandé n'a pas été retrouvé.",
+        "abortedByUser": "Désolé, une erreur s'est produite.",
         "intentNotRecognized": "Désolé, je n'ai pas compris votre requête.",
         "timeout": "Désolé, la durée maximale de votre session est dépassée.",
         "intersection": "Désolé, la période demandée doit être comprise entre aujourd'hui et dans 5 jours au plus tard.",
         "APIResponse": "Désolé, une erreur s'est produite avec le service de météo.",
         "APIRequest": "Désolé, le service de météo est injoignable.",
         "API": "Désolé, une erreur s'est durant la recherche de vos données.",
-        "localisation": "Désolé, cette langue n'est pas supportée.",
         "unspecific": "Oups, quelque chose s'est mal passé."
     },
     "warning": {
@@ -23,18 +22,12 @@
         "weather": {
             "prediction": {
                 "quantifier": [
-                    "il fera {{- weather }}",
                     "le temps sera {{- weather }}",
-                    "il est prévu qu'il fasse {{- weather }}",
-                    "il fera un temps {{- weather }}",
-                    "les prévisions sont à un temps {{- weather }}"
+                    "il fera un temps {{- weather }}"
                 ],
                 "qualifier": [
-                    "il fera {{- weather }}",
                     "le temps sera {{- weather }}",
-                    "il est prévu qu'il fasse {{- weather }}",
-                    "il fera un temps {{- weather }}",
-                    "les prévisions sont à un temps {{- weather }}"
+                    "il fera un temps {{- weather }}"
                 ]
             },
             "temperatures": {
@@ -57,8 +50,7 @@
             "temperatures": {
                 "range": [
                     "il fera entre {{ minTemp }} et {{ maxTemp }} degrés",
-                    "les températures seront comprises entre {{ minTemp }} et {{ maxTemp }} degrés",
-                    "il y aura une température minimale de {{ minTemp }} et une température maximale de {{ maxTemp }} degrés"
+                    "les températures seront comprises entre {{ minTemp }} et {{ maxTemp }} degrés"
                 ],
                 "exact": [
                     "la température sera de {{ temperature }} degrés",
@@ -75,23 +67,23 @@
                     "Oui, il va pleuvoir sur {{- place }}.",
                     "Oui, il est prévu qu'il pleuve sur {{- place }}.",
                     "Oui, sur {{- place }} le temps sera pluvieux.",
-                    "Effectivement, il y aura des averses sur {{- place }}.",
-                    "Il y aura bien de la pluie sur {{- place }}.",
-                    "Sur {{- place }}, de la pluie est prévue."
+                    "Oui, il y aura des averses sur {{- place }}.",
+                    "Oui, il y aura bien de la pluie sur {{- place }}.",
+                    "Oui, de la pluie est prévue sur {{- place }}."
                 ],
                 "snow": [
                     "Oui, il va neiger sur {{- place }}.",
                     "Oui, il est prévu qu'il neige sur {{- place }}.",
                     "Oui, sur {{- place }} le temps sera neigeux.",
-                    "Effectivement, il y aura de la neige sur {{- place }}.",
-                    "Il y aura bien de la neige sur {{- place }}.",
-                    "Sur {{- place }}, de la neige est prévue."
+                    "Oui, il y aura de la neige sur {{- place }}.",
+                    "Oui, il y aura bien de la neige sur {{- place }}.",
+                    "Oui, de la neige est prévue sur {{- place }}."
                 ],
                 "cold": [
                     "Oui, il va faire froid sur {{- place }}.",
                     "Oui, il est prévu qu'il fasse froid sur {{- place }}.",
                     "Oui, sur {{- place }} les températures seront fraîches.",
-                    "Effectivement, il y aura des températures assez basses sur {{- place }}.",
+                    "Oui, les températures seront assez basses sur {{- place }}.",
                     "Oui, sur {{- place }} il fera froid.",
                     "Oui, sur {{- place }}, on attend des températures plutôt basses."
                 ],
@@ -99,7 +91,7 @@
                     "Oui, il va faire chaud sur {{- place }}.",
                     "Oui, il est prévu qu'il fasse chaud sur {{- place }}.",
                     "Oui, sur {{- place }} les températures seront hautes.",
-                    "Effectivement, il y aura des températures assez élevées sur {{- place }}.",
+                    "Oui, les températures seront assez élevées sur {{- place }}.",
                     "Oui, sur {{- place }} il fera chaud.",
                     "Oui, sur {{- place }}, on attend des températures plutôt hautes."
                 ],
@@ -107,17 +99,15 @@
                     "Oui, il y aura des nuages sur {{- place }}.",
                     "Oui, il est prévu qu'il y ait des nuages sur {{- place }}.",
                     "Oui, sur {{- place }} le temps sera nuageux.",
-                    "Effectivement, il y aura des nuages sur {{- place }}.",
-                    "Il y aura bien des nuages sur {{- place }}.",
-                    "Sur {{- place }}, on prévoit bien un ciel nuageux."
+                    "Oui, il y aura des nuages sur {{- place }}.",
+                    "Oui, il y aura bien des nuages sur {{- place }}.",
+                    "Oui, un ciel nuageux est prévu sur {{- place }}."
                 ],
                 "sun": [
                     "Oui, il va faire un grand soleil sur {{- place }}.",
                     "Oui, il est prévu qu'il y ait du soleil sur {{- place }}.",
                     "Oui, sur {{- place }} le temps sera ensoleillé.",
-                    "Effectivement, il y aura du soleil sur {{- place }}.",
-                    "Il y aura bien un ciel dégagé sur {{- place }}.",
-                    "Oui. Sur {{- place }}, on prévoit un grand ciel bleu."
+                    "Oui, il y aura du soleil sur {{- place }}."
                 ]
             },
             "no": {
@@ -127,37 +117,35 @@
                     "Non, sur {{- place }} le temps ne sera pas pluvieux.",
                     "Non, il n'y aura pas d'averse sur {{- place }}.",
                     "Non, il n'y aura pas de pluie sur {{- place }}.",
-                    "Sur {{- place }}, aucune pluie n'est prévue."
+                    "Non, aucune pluie n'est prévue sur {{- place }}."
                 ],
                 "snow": [
                     "Non, il ne neigera pas sur {{- place }}.",
                     "Non, il n'est pas prévu qu'il neige sur {{- place }}.",
                     "Non, sur {{- place }} le temps ne sera pas neigeux.",
                     "Non, il n'y aura pas de neige sur {{- place }}.",
-                    "Sur {{- place }}, aucune chute de neige n'est prévue."
+                    "Non, aucune chute de neige n'est prévue sur {{- place }}."
                 ],
                 "cold": [
                     "Non, il ne fera pas froid sur {{- place }}.",
                     "Non, il n'est pas prévu qu'il fasse froid sur {{- place }}.",
                     "Non, sur {{- place }} le temps ne sera pas froid.",
-                    "Sur {{- place }}, il n'est pas prévu qu'il fasse froid."
+                    "Non, il n'est pas prévu qu'il fasse froid sur {{- place }}."
                 ],
                 "warm": [
                     "Non, il ne fera pas chaud sur {{- place }}.",
                     "Non, il n'est pas prévu qu'il fasse chaud sur {{- place }}.",
                     "Non, sur {{- place }} le temps ne sera pas chaud.",
-                    "Sur {{- place }}, il n'est pas prévu qu'il fasse chaud."
+                    "Non, il n'est pas prévu qu'il fasse chaud sur {{- place }}."
                 ],
                 "clouds": [
                     "Non, il n'y aura pas de nuages sur {{- place }}.",
                     "Non, il n'est pas prévu qu'il fasse nuageux sur {{- place }}.",
                     "Non, sur {{- place }} le temps ne sera pas nuageux.",
-                    "Non, il n'y aura pas de nuages sur {{- place }}.",
-                    "Non, il n'y aura pas de nuages sur {{- place }}.",
-                    "Sur {{- place }}, aucun nuage n'est prévu à l'horizon."
+                    "Non, il n'y aura pas de nuages sur {{- place }}."
                 ],
                 "sun": [
-                    "Non, il n'y aura pas un grand soleil sur {{- place }}.",
+                    "Non, il n'y aura pas de soleil sur {{- place }}.",
                     "Non, il n'est pas prévu qu'il y ait du soleil sur {{- place }}.",
                     "Non, sur {{- place }} le temps ne sera pas ensoleillé.",
                     "Non, le ciel ne sera pas dégagé sur {{- place }}.",
