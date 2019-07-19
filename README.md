@@ -13,7 +13,7 @@ sh setup.sh
 
 Don't forget to edit the `config.ini` file.
 
-To be able to make calls to the API, you must have a [OpenWeatherMap API key](https://openweathermap.org/api).
+To be able to make calls to the API, you must have a [OpenWeatherMap API key](https://openweathermap.org/api) (5 day / 3 hour forecast).
 
 An assistant containing the intents listed below must be installed on your system. Deploy it following [these instructions](https://docs.snips.ai/articles/console/actions/deploy-your-assistant).
 
