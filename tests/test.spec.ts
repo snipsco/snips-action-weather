@@ -1,12 +1,20 @@
 import { Test } from 'snips-toolkit'
-import { createIntervalSlot, createCitySlot, createConditionSlot } from './utils'
+import {
+    createIntervalSlot,
+    createCitySlot,
+    createConditionSlot
+} from './utils'
 const { Session } = Test
 
 import './mocks'
 
 const lowerTimeZone = new Date().getTimezoneOffset() > -60
 
-describe('The weather app', () => {
+SnipsToolkit.mock.config(config => {
+    config.apiKey = 'fake_api_key'
+})
+
+describe('Weather app', () => {
 
     const today = new Date(Date.now())
     today.setHours(0,0,0,0)
