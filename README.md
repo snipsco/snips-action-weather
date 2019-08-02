@@ -6,6 +6,27 @@
 
 ## Setup
 
+Prepare your node environment on your Pi.
+
+This action needs `nodejs` version 10 at minimum and recent version of npm.
+
+On your pi, install a recent version of node and npm:
+
+```
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt install nodejs
+sudo apt install npm
+npm install -g npm@latest
+```
+
+On your desktop, install the skill using sam:
+
+```
+sam install actions -g https://github.com/snipsco/snips-action-weather     
+```
+
+
+
 ```sh
 # Install the dependencies, builds the action and creates the config.ini file.
 sh setup.sh
